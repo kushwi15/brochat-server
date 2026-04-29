@@ -1,0 +1,6 @@
+@BroChat.Api_HostAddress = http://localhost:5110
+
+GET {{BroChat.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

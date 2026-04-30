@@ -1,15 +1,15 @@
 using BroChat.Application.Interfaces;
 using BroChat.Domain.Entities;
 using BroChat.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 
 namespace BroChat.Infrastructure.Repositories;
 
 public class MessageRepository : IMessageRepository
 {
-    private readonly BroChatDbContext _context;
+    private readonly MongoDbContext _context;
 
-    public MessageRepository(BroChatDbContext context)
+    public MessageRepository(MongoDbContext context)
     {
         _context = context;
     }
@@ -17,13 +17,13 @@ public class MessageRepository : IMessageRepository
     public async Task<IEnumerable<Message>> GetByConversationIdAsync(Guid conversationId)
     {
         return await _context.Messages
-            .Where(m => m.ConversationId == conversationId)
-            .OrderBy(m => m.Timestamp)
+            .Find(m => m.ConversationId == conversationId)
+            .SortBy(m => m.Timestamp)
             .ToListAsync();
     }
 
     public async Task AddAsync(Message message)
     {
-        await _context.Messages.AddAsync(message);
+        await _context.Messages.InsertOneAsync(message);
     }
 }

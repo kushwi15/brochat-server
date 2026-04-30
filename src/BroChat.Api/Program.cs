@@ -5,7 +5,7 @@ using BroChat.Infrastructure.Repositories;
 using BroChat.Infrastructure.Services;
 using BroChat.Api.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using Microsoft.IdentityModel.Tokens;
 using DotNetEnv;
 using Microsoft.OpenApi.Models;
@@ -42,9 +42,13 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// DbContext
-builder.Services.AddDbContext<BroChatDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// MongoDB
+builder.Services.AddSingleton<IMongoClient>(sp => 
+{
+    var config = sp.GetRequiredService<IConfiguration>();
+    return new MongoClient(config["MongoDb:ConnectionString"]);
+});
+builder.Services.AddScoped<MongoDbContext>();
 
 // Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();

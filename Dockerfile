@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
 # Copy solution and project files
-COPY *.sln .
+COPY BroChat.slnx .
 COPY src/BroChat.Domain/*.csproj ./src/BroChat.Domain/
 COPY src/BroChat.Application/*.csproj ./src/BroChat.Application/
 COPY src/BroChat.Infrastructure/*.csproj ./src/BroChat.Infrastructure/

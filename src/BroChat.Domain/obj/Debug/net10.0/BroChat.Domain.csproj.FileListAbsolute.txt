@@ -5,6 +5,7 @@ C:\Users\user\Desktop\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroCha
 C:\Users\user\Desktop\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.AssemblyInfoInputs.cache
 C:\Users\user\Desktop\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.AssemblyInfo.cs
 C:\Users\user\Desktop\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.sourcelink.json
 C:\Users\user\Desktop\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.dll
 C:\Users\user\Desktop\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\refint\BroChat.Domain.dll
 C:\Users\user\Desktop\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.pdb

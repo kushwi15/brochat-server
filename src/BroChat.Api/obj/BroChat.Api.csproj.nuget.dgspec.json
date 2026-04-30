@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj": {}
+    "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj": {
+    "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj",
         "projectName": "BroChat.Api",
-        "projectPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj",
+        "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Api\\obj\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,11 +26,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj": {
-                "projectPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj"
+              "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj": {
+                "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj"
               },
-              "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj"
+              "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj"
               }
             }
           }
@@ -509,14 +509,14 @@
         }
       }
     },
-    "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj": {
+    "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj",
         "projectName": "BroChat.Application",
-        "projectPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj",
+        "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Application\\obj\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -531,8 +531,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj": {
-                "projectPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj"
+              "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj": {
+                "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj"
               }
             }
           }
@@ -852,14 +852,14 @@
         }
       }
     },
-    "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj": {
+    "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj",
         "projectName": "BroChat.Domain",
-        "projectPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj",
+        "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Domain\\obj\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1185,14 +1185,14 @@
         }
       }
     },
-    "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj": {
+    "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj",
         "projectName": "BroChat.Infrastructure",
-        "projectPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1207,8 +1207,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj": {
-                "projectPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj"
+              "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj": {
+                "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj"
               }
             }
           }
@@ -1236,6 +1236,10 @@
             "Google.Apis.Auth": {
               "target": "Package",
               "version": "[1.73.0, )"
+            },
+            "Google.GenAI": {
+              "target": "Package",
+              "version": "[1.0.0-beta1, )"
             },
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",

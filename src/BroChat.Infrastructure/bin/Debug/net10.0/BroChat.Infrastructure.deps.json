@@ -11,6 +11,7 @@
           "BCrypt.Net-Next": "4.1.0",
           "BroChat.Application": "1.0.0",
           "Google.Apis.Auth": "1.73.0",
+          "Google.GenAI": "1.0.0",
           "Microsoft.Extensions.Configuration.Abstractions": "10.0.0",
           "Microsoft.IdentityModel.Tokens": "8.6.0",
           "MongoDB.Driver": "3.1.0",
@@ -88,6 +89,26 @@
           "lib/net6.0/Google.Apis.Core.dll": {
             "assemblyVersion": "1.73.0.0",
             "fileVersion": "1.73.0.0"
+          }
+        }
+      },
+      "Google.GenAI/1.0.0": {
+        "dependencies": {
+          "Google.Apis.Auth": "1.73.0",
+          "Microsoft.Extensions.AI.Abstractions": "10.1.1"
+        },
+        "runtime": {
+          "lib/net8.0/Google.GenAI.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Microsoft.Extensions.AI.Abstractions/10.1.1": {
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll": {
+            "assemblyVersion": "10.1.0.0",
+            "fileVersion": "10.100.125.61202"
           }
         }
       },
@@ -342,6 +363,20 @@
       "sha512": "sha512-vSc7CY4KCP7HE4QTElDx/ExnGLbg9kXb89MS6cdvI+0D4sxvTYb16vGtXmF2jSDMV3iDmykSXdIUPTz8TDS6gg==",
       "path": "google.apis.core/1.73.0",
       "hashPath": "google.apis.core.1.73.0.nupkg.sha512"
+    },
+    "Google.GenAI/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Vc8fKbaxn0zrr6Pws19R/qW13RTRwBYARA3bK1cSIaILRVuRvzFJXLioWf6BseQL2h4WNyouakf/1XBo+HghCg==",
+      "path": "google.genai/1.0.0",
+      "hashPath": "google.genai.1.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.AI.Abstractions/10.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cgj8iHv4JwUpcPANZ0oLILz146Y1Oa+l280b1c1a3DjwZflH9nmYcrX952YUuqftz2sheAC2TPCGcEa6unKQgQ==",
+      "path": "microsoft.extensions.ai.abstractions/10.1.1",
+      "hashPath": "microsoft.extensions.ai.abstractions.10.1.1.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration.Abstractions/10.0.0": {
       "type": "package",

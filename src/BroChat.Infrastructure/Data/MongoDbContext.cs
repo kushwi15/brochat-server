@@ -24,6 +24,24 @@ public class MongoDbContext
         
         var client = new MongoClient(connectionString);
         _database = client.GetDatabase(databaseName);
+
+        CreateIndexes();
+    }
+
+    private void CreateIndexes()
+    {
+        // User Indexes
+        Users.Indexes.CreateOne(new CreateIndexModel<User>(
+            Builders<User>.IndexKeys.Ascending(u => u.Email),
+            new CreateIndexOptions { Unique = true }));
+
+        // Conversation Indexes
+        Conversations.Indexes.CreateOne(new CreateIndexModel<Conversation>(
+            Builders<Conversation>.IndexKeys.Ascending(c => c.UserId)));
+
+        // Message Indexes
+        Messages.Indexes.CreateOne(new CreateIndexModel<Message>(
+            Builders<Message>.IndexKeys.Ascending(m => m.ConversationId)));
     }
 
     public IMongoCollection<User> Users => _database.GetCollection<User>("Users");

@@ -4,6 +4,7 @@ using BroChat.Infrastructure.Data;
 using BroChat.Infrastructure.Repositories;
 using BroChat.Infrastructure.Services;
 using BroChat.Api.Hubs;
+using BroChat.Api.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MongoDB.Driver;
 using Microsoft.IdentityModel.Tokens;
@@ -112,13 +113,14 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
-        });
+    options.AddPolicy("DefaultPolicy", policy =>
+    {
+        var origins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[] { "http://localhost:5173" };
+        policy.WithOrigins(origins)
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
 });
 
 var app = builder.Build();
@@ -130,9 +132,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BroChat API v1"));
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
+
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
+app.UseCors("DefaultPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();

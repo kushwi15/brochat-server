@@ -59,12 +59,14 @@ public class ChatHub : Hub
 
         // Stream AI response
         var fullAiResponse = "";
+        var aiMessageId = Guid.NewGuid().ToString(); // Generate a temp ID for the frontend
+
         try
         {
             await foreach (var chunk in _aiService.StreamChatResponseAsync(history.Where(m => m.Id != userMessage.Id), messageContent))
             {
                 fullAiResponse += chunk;
-                await Clients.Caller.SendAsync("ReceiveMessageChunk", chunk);
+                await Clients.Caller.SendAsync("ReceiveMessageChunk", aiMessageId, chunk);
             }
         }
         catch (Exception ex)
@@ -83,6 +85,6 @@ public class ChatHub : Hub
         await _messageRepository.AddAsync(aiMessage);
         await _unitOfWork.SaveChangesAsync();
 
-        await Clients.Caller.SendAsync("MessageComplete");
+        await Clients.Caller.SendAsync("MessageComplete", aiMessageId);
     }
 }

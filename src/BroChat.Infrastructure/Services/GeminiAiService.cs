@@ -24,40 +24,72 @@ public class GeminiAiService : IAiService
         string newPrompt, 
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var requestUrl = $"v1beta/models/gemini-1.5-flash:streamGenerateContent?key={_apiKey}";
+        var requestUrl = $"v1beta/models/gemini-3-flash-preview:streamGenerateContent?alt=sse&key={_apiKey}";
 
-        var contents = history.Select(m => new
-        {
-            role = m.Role == Domain.Enums.MessageRole.User ? "user" : "model",
-            parts = new[] { new { text = m.Content } }
-        }).ToList();
+        // Ensure alternating roles for Gemini
+        var contents = new List<object>();
+        string lastRole = "";
 
-        contents.Add(new
+        foreach (var m in history.OrderBy(m => m.Timestamp))
         {
-            role = "user",
-            parts = new[] { new { text = newPrompt } }
-        });
+            var currentRole = m.Role == Domain.Enums.MessageRole.User ? "user" : "model";
+            if (currentRole == lastRole) continue;
+
+            contents.Add(new
+            {
+                role = currentRole,
+                parts = new[] { new { text = m.Content } }
+            });
+            lastRole = currentRole;
+        }
+
+        if (lastRole != "user")
+        {
+            contents.Add(new
+            {
+                role = "user",
+                parts = new[] { new { text = newPrompt } }
+            });
+        }
+        else
+        {
+            var lastContent = (dynamic)contents[^1];
+            contents[^1] = new
+            {
+                role = "user",
+                parts = new[] { new { text = lastContent.parts[0].text + "\n" + newPrompt } }
+            };
+        }
 
         var requestBody = new { contents };
-
         var request = new HttpRequestMessage(HttpMethod.Post, requestUrl)
         {
             Content = JsonContent.Create(requestBody)
         };
 
         using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new Exception($"Gemini API Error ({response.StatusCode}): {errorBody}");
+        }
 
         using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
-        using var document = await JsonDocument.ParseAsync(stream, cancellationToken: cancellationToken);
-        
-        // This is a simplified parsing for streamGenerateContent array response
-        // Note: Google's streamGenerateContent returns a JSON array of response chunks.
-        if (document.RootElement.ValueKind == JsonValueKind.Array)
+        using var reader = new StreamReader(stream);
+
+        while (!cancellationToken.IsCancellationRequested)
         {
-            foreach (var chunk in document.RootElement.EnumerateArray())
+            var line = await reader.ReadLineAsync(cancellationToken);
+            if (line == null) break;
+            if (string.IsNullOrWhiteSpace(line)) continue;
+
+            if (line.StartsWith("data: "))
             {
-                if (chunk.TryGetProperty("candidates", out var candidates) && candidates.GetArrayLength() > 0)
+                var json = line.Substring(6);
+                using var doc = JsonDocument.Parse(json);
+                
+                if (doc.RootElement.TryGetProperty("candidates", out var candidates) && candidates.GetArrayLength() > 0)
                 {
                     var firstCandidate = candidates[0];
                     if (firstCandidate.TryGetProperty("content", out var content) &&
@@ -69,6 +101,10 @@ public class GeminiAiService : IAiService
                         {
                             yield return text;
                         }
+                    }
+                    else if (firstCandidate.TryGetProperty("finishReason", out var reason) && reason.GetString() == "SAFETY")
+                    {
+                        yield return "[Response blocked by AI safety filters]";
                     }
                 }
             }

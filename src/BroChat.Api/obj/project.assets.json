@@ -119,6 +119,24 @@
           }
         }
       },
+      "Google.GenAI/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis.Auth": "1.69.0",
+          "Microsoft.Extensions.AI.Abstractions": "10.1.1",
+          "MimeTypes": "2.5.2"
+        },
+        "compile": {
+          "lib/net8.0/Google.GenAI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Google.GenAI.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Authentication.Google/10.0.7": {
         "type": "package",
         "compile": {
@@ -153,6 +171,19 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "Microsoft.Extensions.AI.Abstractions/10.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
       },
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
         "type": "package",
@@ -285,6 +316,16 @@
         "runtime": {
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
             "related": ".pdb;.xml"
+          }
+        }
+      },
+      "MimeTypes/2.5.2": {
+        "type": "package",
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
           }
         }
       },
@@ -688,6 +729,7 @@
           "BCrypt.Net-Next": "4.1.0",
           "BroChat.Application": "1.0.0",
           "Google.Apis.Auth": "1.73.0",
+          "Google.GenAI": "1.0.0-beta1",
           "Microsoft.IdentityModel.Tokens": "8.6.0",
           "MongoDB.Driver": "3.1.0",
           "System.IdentityModel.Tokens.Jwt": "8.6.0"
@@ -865,6 +907,22 @@
         "lib/netstandard2.0/Google.Apis.Core.xml"
       ]
     },
+    "Google.GenAI/1.0.0": {
+      "sha512": "Vc8fKbaxn0zrr6Pws19R/qW13RTRwBYARA3bK1cSIaILRVuRvzFJXLioWf6BseQL2h4WNyouakf/1XBo+HghCg==",
+      "type": "package",
+      "path": "google.genai/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "google.genai.1.0.0.nupkg.sha512",
+        "google.genai.nuspec",
+        "lib/net8.0/Google.GenAI.dll",
+        "lib/net8.0/Google.GenAI.xml",
+        "lib/netstandard2.0/Google.GenAI.dll",
+        "lib/netstandard2.0/Google.GenAI.xml"
+      ]
+    },
     "Microsoft.AspNetCore.Authentication.Google/10.0.7": {
       "sha512": "P+EStKGKTMQQxB31HUKDiIRYVOP73YIxvOl1ICR3BmGfWAFwSZAyuMvkfP+PGFj37kkoicE0vjhggJN4vYgzoA==",
       "type": "package",
@@ -895,6 +953,29 @@
         "lib/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
         "microsoft.aspnetcore.authentication.jwtbearer.10.0.7.nupkg.sha512",
         "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.AI.Abstractions/10.1.1": {
+      "sha512": "cgj8iHv4JwUpcPANZ0oLILz146Y1Oa+l280b1c1a3DjwZflH9nmYcrX952YUuqftz2sheAC2TPCGcEa6unKQgQ==",
+      "type": "package",
+      "path": "microsoft.extensions.ai.abstractions/10.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "README.md",
+        "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net10.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/net462/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/net9.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net9.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "microsoft.extensions.ai.abstractions.10.1.1.nupkg.sha512",
+        "microsoft.extensions.ai.abstractions.nuspec"
       ]
     },
     "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
@@ -1312,6 +1393,24 @@
         "lib/netstandard2.0/Microsoft.OpenApi.xml",
         "microsoft.openapi.1.6.22.nupkg.sha512",
         "microsoft.openapi.nuspec"
+      ]
+    },
+    "MimeTypes/2.5.2": {
+      "sha512": "vm4xrNt+i6OVRQ8vhfCcmDIUg3qvjyCTkSTNVTDFohsG6CXEpMaVFkidECL6yRYpHDnz4TqXhDoEQAcnHCu/tw==",
+      "type": "package",
+      "path": "mimetypes/2.5.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "contentFiles/cs/net472/MimeTypes.cs.pp",
+        "contentFiles/cs/net5.0/MimeTypes.Nullable.cs.pp",
+        "contentFiles/cs/netcoreapp3.0/MimeTypes.Nullable.cs.pp",
+        "contentFiles/cs/netstandard2.0/MimeTypes.cs.pp",
+        "contentFiles/cs/netstandard2.1/MimeTypes.Nullable.cs.pp",
+        "docs/README.md",
+        "images/nuget-icon.png",
+        "mimetypes.2.5.2.nupkg.sha512",
+        "mimetypes.nuspec"
       ]
     },
     "MongoDB.Bson/3.1.0": {
@@ -1868,11 +1967,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj",
       "projectName": "BroChat.Api",
-      "projectPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj",
+      "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Api\\BroChat.Api.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Api\\obj\\",
+      "outputPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1887,11 +1986,11 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj": {
-              "projectPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj"
+            "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj": {
+              "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj"
             },
-            "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\user\\Desktop\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj"
+            "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj"
             }
           }
         }
@@ -2369,5 +2468,17 @@
         }
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "BroChat.Infrastructure depends on Google.GenAI (>= 1.0.0-beta1) but Google.GenAI 1.0.0-beta1 was not found. Google.GenAI 1.0.0 was resolved instead.",
+      "libraryId": "Google.GenAI",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

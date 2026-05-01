@@ -5,15 +5,15 @@ namespace BroChat.Infrastructure.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly BroChatDbContext _context;
-
-    public UnitOfWork(BroChatDbContext context)
+    public UnitOfWork(MongoDbContext context)
     {
-        _context = context;
     }
 
-    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return await _context.SaveChangesAsync(cancellationToken);
+        // MongoDB writes are atomic by default for single documents.
+        // For multi-document transactions, we would use sessions.
+        // To keep the existing flow, we return 1 (success).
+        return Task.FromResult(1);
     }
 }

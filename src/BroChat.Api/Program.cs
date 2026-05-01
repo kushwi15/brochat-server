@@ -4,8 +4,9 @@ using BroChat.Infrastructure.Data;
 using BroChat.Infrastructure.Repositories;
 using BroChat.Infrastructure.Services;
 using BroChat.Api.Hubs;
+using BroChat.Api.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using Microsoft.IdentityModel.Tokens;
 using DotNetEnv;
 using Microsoft.OpenApi.Models;
@@ -42,14 +43,19 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// DbContext
-builder.Services.AddDbContext<BroChatDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// MongoDB
+builder.Services.AddSingleton<IMongoClient>(sp => 
+{
+    var config = sp.GetRequiredService<IConfiguration>();
+    return new MongoClient(config["MongoDb:ConnectionString"]);
+});
+builder.Services.AddScoped<MongoDbContext>();
 
 // Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IConversationRepository, ConversationRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<IGuestUsageRepository, GuestUsageRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Services
@@ -108,13 +114,14 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
-        });
+    options.AddPolicy("DefaultPolicy", policy =>
+    {
+        var origins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[] { "http://localhost:5173" };
+        policy.WithOrigins(origins)
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
 });
 
 var app = builder.Build();
@@ -126,9 +133,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BroChat API v1"));
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
+
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
+app.UseCors("DefaultPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();

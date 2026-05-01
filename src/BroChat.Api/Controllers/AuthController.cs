@@ -30,11 +30,12 @@ public class AuthController : ControllerBase
         var existingUser = await _userRepository.GetByEmailAsync(request.Email);
         if (existingUser != null)
         {
-            return BadRequest(new { Message = "Email already in use." });
+            return Conflict(new { Message = "Email already registered." });
         }
 
         var user = new User
         {
+            Name = request.Name,
             Email = request.Email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password)
         };
@@ -49,6 +50,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login(LoginRequest request)
     {
         var user = await _userRepository.GetByEmailAsync(request.Email);
+        
         if (user == null || user.PasswordHash == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
         {
             return Unauthorized(new { Message = "Invalid credentials." });
@@ -66,6 +68,7 @@ public class AuthController : ControllerBase
         {
             UserId = user.Id,
             Email = user.Email,
+            Name = user.Name,
             AccessToken = token
         });
     }
@@ -79,38 +82,46 @@ public class AuthController : ControllerBase
             return Unauthorized(new { Message = "Invalid Google token." });
         }
 
-        var user = await _userRepository.GetByEmailAsync(externalUser.Email);
+        // Check if there's any user already linked to this Google subject ID
+        var user = await _userRepository.GetByProviderAsync("Google", externalUser.ProviderSubjectId);
         
         if (user == null)
         {
-            // Register the user automatically
-            user = new User
-            {
-                Email = externalUser.Email
-            };
-            
-            user.AuthProviders.Add(new AuthProvider
-            {
-                ProviderName = "Google",
-                ProviderSubjectId = externalUser.ProviderSubjectId
-            });
+            // If not linked by subject ID, check if we should link to an existing account with this email
+            user = await _userRepository.GetByEmailAsync(externalUser.Email);
 
-            await _userRepository.AddAsync(user);
-            await _unitOfWork.SaveChangesAsync();
-        }
-        else
-        {
-            // Check if they already have this provider linked, if not, link it
-            var providerUser = await _userRepository.GetByProviderAsync("Google", externalUser.ProviderSubjectId);
-            if (providerUser == null)
+            if (user == null)
             {
+                // Register a new user
+                user = new User
+                {
+                    Email = externalUser.Email,
+                    Name = externalUser.Name
+                };
+                
                 user.AuthProviders.Add(new AuthProvider
                 {
                     ProviderName = "Google",
                     ProviderSubjectId = externalUser.ProviderSubjectId
                 });
-                await _userRepository.UpdateAsync(user);
+
+                await _userRepository.AddAsync(user);
                 await _unitOfWork.SaveChangesAsync();
+            }
+            else
+            {
+                // Check if Google is already linked (shouldn't be, as GetByProviderAsync failed)
+                if (!user.AuthProviders.Any(ap => ap.ProviderName == "Google"))
+                {
+                    // Link Google to this existing email account
+                    user.AuthProviders.Add(new AuthProvider
+                    {
+                        ProviderName = "Google",
+                        ProviderSubjectId = externalUser.ProviderSubjectId
+                    });
+                    await _userRepository.UpdateAsync(user);
+                    await _unitOfWork.SaveChangesAsync();
+                }
             }
         }
 
@@ -126,6 +137,7 @@ public class AuthController : ControllerBase
         {
             UserId = user.Id,
             Email = user.Email,
+            Name = user.Name,
             AccessToken = token
         });
     }
@@ -155,6 +167,7 @@ public class AuthController : ControllerBase
         {
             UserId = user.Id,
             Email = user.Email,
+            Name = user.Name,
             AccessToken = newJwtToken
         });
     }

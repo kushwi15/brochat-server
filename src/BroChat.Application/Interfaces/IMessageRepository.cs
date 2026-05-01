@@ -6,4 +6,5 @@ public interface IMessageRepository
 {
     Task<IEnumerable<Message>> GetByConversationIdAsync(Guid conversationId);
     Task AddAsync(Message message);
+    Task DeleteByConversationIdAsync(Guid conversationId);
 }

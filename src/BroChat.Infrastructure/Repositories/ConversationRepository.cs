@@ -1,46 +1,44 @@
 using BroChat.Application.Interfaces;
 using BroChat.Domain.Entities;
 using BroChat.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 
 namespace BroChat.Infrastructure.Repositories;
 
 public class ConversationRepository : IConversationRepository
 {
-    private readonly BroChatDbContext _context;
+    private readonly MongoDbContext _context;
 
-    public ConversationRepository(BroChatDbContext context)
+    public ConversationRepository(MongoDbContext context)
     {
         _context = context;
     }
 
-    public Task<Conversation?> GetByIdAsync(Guid id)
+    public async Task<Conversation?> GetByIdAsync(Guid id)
     {
-        return _context.Conversations.FirstOrDefaultAsync(c => c.Id == id);
+        return await _context.Conversations.Find(c => c.Id == id).FirstOrDefaultAsync();
     }
 
     public async Task<IEnumerable<Conversation>> GetAllByUserIdAsync(Guid userId)
     {
         return await _context.Conversations
-            .Where(c => c.UserId == userId && c.IsActive)
-            .OrderByDescending(c => c.CreatedAt)
+            .Find(c => c.UserId == userId && c.IsActive)
+            .SortByDescending(c => c.CreatedAt)
             .ToListAsync();
     }
 
     public async Task AddAsync(Conversation conversation)
     {
-        await _context.Conversations.AddAsync(conversation);
+        await _context.Conversations.InsertOneAsync(conversation);
     }
 
-    public Task UpdateAsync(Conversation conversation)
+    public async Task UpdateAsync(Conversation conversation)
     {
-        _context.Conversations.Update(conversation);
-        return Task.CompletedTask;
+        await _context.Conversations.ReplaceOneAsync(c => c.Id == conversation.Id, conversation);
     }
 
-    public Task DeleteAsync(Conversation conversation)
+    public async Task DeleteAsync(Conversation conversation)
     {
-        _context.Conversations.Remove(conversation);
-        return Task.CompletedTask;
+        await _context.Conversations.DeleteOneAsync(c => c.Id == conversation.Id);
     }
 }

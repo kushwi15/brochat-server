@@ -30,6 +30,7 @@ public class GoogleAuthService : IExternalAuthService
             return new ExternalAuthUserDto
             {
                 Email = payload.Email,
+                Name = payload.Name ?? payload.Email.Split('@')[0],
                 ProviderSubjectId = payload.Subject
             };
         }

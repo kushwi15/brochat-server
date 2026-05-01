@@ -729,7 +729,7 @@
           "BCrypt.Net-Next": "4.1.0",
           "BroChat.Application": "1.0.0",
           "Google.Apis.Auth": "1.73.0",
-          "Google.GenAI": "1.0.0-beta1",
+          "Google.GenAI": "1.0.0",
           "Microsoft.IdentityModel.Tokens": "8.6.0",
           "MongoDB.Driver": "3.1.0",
           "System.IdentityModel.Tokens.Jwt": "8.6.0"
@@ -2468,17 +2468,5 @@
         }
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "BroChat.Infrastructure depends on Google.GenAI (>= 1.0.0-beta1) but Google.GenAI 1.0.0-beta1 was not found. Google.GenAI 1.0.0 was resolved instead.",
-      "libraryId": "Google.GenAI",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    }
-  ]
+  }
 }

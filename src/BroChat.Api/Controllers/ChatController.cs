@@ -79,4 +79,20 @@ public class ChatController : ControllerBase
             Timestamp = m.Timestamp
         }));
     }
+
+    [HttpDelete("{conversationId}")]
+    public async Task<IActionResult> DeleteConversation(Guid conversationId)
+    {
+        var conversation = await _conversationRepository.GetByIdAsync(conversationId);
+        if (conversation == null || conversation.UserId != GetUserId())
+        {
+            return NotFound();
+        }
+
+        await _messageRepository.DeleteByConversationIdAsync(conversationId);
+        await _conversationRepository.DeleteAsync(conversation);
+        await _unitOfWork.SaveChangesAsync();
+
+        return NoContent();
+    }
 }

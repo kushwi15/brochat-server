@@ -26,4 +26,9 @@ public class MessageRepository : IMessageRepository
     {
         await _context.Messages.InsertOneAsync(message);
     }
+    
+    public async Task DeleteByConversationIdAsync(Guid conversationId)
+    {
+        await _context.Messages.DeleteManyAsync(m => m.ConversationId == conversationId);
+    }
 }

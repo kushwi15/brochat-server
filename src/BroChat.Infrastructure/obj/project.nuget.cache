@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "q6Wo24KvjJ0=",
+  "dgSpecHash": "oVoVKPki3nU=",
   "success": true,
   "projectFilePath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -32,18 +32,5 @@
     "C:\\Users\\user\\.nuget\\packages\\system.management\\7.0.2\\system.management.7.0.2.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "message": "BroChat.Infrastructure depends on Google.GenAI (>= 1.0.0-beta1) but Google.GenAI 1.0.0-beta1 was not found. Google.GenAI 1.0.0 was resolved instead.",
-      "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj",
-      "libraryId": "Google.GenAI",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    }
-  ]
+  "logs": []
 }

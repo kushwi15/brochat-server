@@ -30,7 +30,8 @@ public class MongoDbContext
 
     private void CreateIndexes()
     {
-        // User Indexes
+        // User Indexes - Dropping old unique index if it exists to allow duplicates
+        try { Users.Indexes.DropOne("Email_1"); } catch { }
         Users.Indexes.CreateOne(new CreateIndexModel<User>(
             Builders<User>.IndexKeys.Ascending(u => u.Email),
             new CreateIndexOptions { Unique = true }));

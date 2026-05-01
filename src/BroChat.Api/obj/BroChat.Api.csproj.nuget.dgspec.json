@@ -1241,6 +1241,10 @@
               "target": "Package",
               "version": "[1.0.0, )"
             },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.16.0, )"
+            },
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
               "version": "[10.0.0, )"

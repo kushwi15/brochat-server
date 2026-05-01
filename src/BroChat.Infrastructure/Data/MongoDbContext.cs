@@ -30,24 +30,40 @@ public class MongoDbContext
 
     private void CreateIndexes()
     {
-        // User Indexes - Dropping old unique index if it exists to allow duplicates
-        try { Users.Indexes.DropOne("Email_1"); } catch { }
-        Users.Indexes.CreateOne(new CreateIndexModel<User>(
-            Builders<User>.IndexKeys.Ascending(u => u.Email),
-            new CreateIndexOptions { Unique = true }));
+        // User Indexes
+        try 
+        { 
+            // Try to create the non-unique index. If it fails because of a name conflict or existing index, we just log it.
+            Users.Indexes.CreateOne(new CreateIndexModel<User>(
+                Builders<User>.IndexKeys.Ascending(u => u.Email),
+                new CreateIndexOptions { Unique = false, Name = "Email_NonUnique" }));
+        } 
+        catch (Exception ex) { Console.WriteLine($"User index warning: {ex.Message}"); }
 
         // Conversation Indexes
-        Conversations.Indexes.CreateOne(new CreateIndexModel<Conversation>(
-            Builders<Conversation>.IndexKeys.Ascending(c => c.UserId)));
+        try 
+        {
+            Conversations.Indexes.CreateOne(new CreateIndexModel<Conversation>(
+                Builders<Conversation>.IndexKeys.Ascending(c => c.UserId)));
+        }
+        catch (Exception ex) { Console.WriteLine($"Conversation index warning: {ex.Message}"); }
 
         // Message Indexes
-        Messages.Indexes.CreateOne(new CreateIndexModel<Message>(
-            Builders<Message>.IndexKeys.Ascending(m => m.ConversationId)));
+        try
+        {
+            Messages.Indexes.CreateOne(new CreateIndexModel<Message>(
+                Builders<Message>.IndexKeys.Ascending(m => m.ConversationId)));
+        }
+        catch (Exception ex) { Console.WriteLine($"Message index warning: {ex.Message}"); }
 
         // GuestUsage Indexes
-        GuestUsages.Indexes.CreateOne(new CreateIndexModel<GuestUsage>(
-            Builders<GuestUsage>.IndexKeys.Ascending(gu => gu.GuestId),
-            new CreateIndexOptions { Unique = true }));
+        try
+        {
+            GuestUsages.Indexes.CreateOne(new CreateIndexModel<GuestUsage>(
+                Builders<GuestUsage>.IndexKeys.Ascending(gu => gu.GuestId),
+                new CreateIndexOptions { Unique = true }));
+        }
+        catch (Exception ex) { Console.WriteLine($"GuestUsage index warning: {ex.Message}"); }
     }
 
     public IMongoCollection<User> Users => _database.GetCollection<User>("Users");

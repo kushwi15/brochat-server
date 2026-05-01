@@ -9,6 +9,9 @@ public class User
     
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    public string? ResetPasswordToken { get; set; }
+    public DateTime? ResetPasswordExpiry { get; set; }
+
     public ICollection<AuthProvider> AuthProviders { get; set; } = new List<AuthProvider>();
     public ICollection<Conversation> Conversations { get; set; } = new List<Conversation>();
     public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();

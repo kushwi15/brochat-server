@@ -39,6 +39,11 @@ public class UserRepository : IUserRepository
         await _context.Users.ReplaceOneAsync(u => u.Id == user.Id, user);
     }
 
+    public async Task<User?> GetByResetTokenAsync(string token)
+    {
+        return await _context.Users.Find(u => u.ResetPasswordToken == token).FirstOrDefaultAsync();
+    }
+
     public async Task<RefreshToken?> GetRefreshTokenAsync(string token)
     {
         var rt = await _context.RefreshTokens.Find(rt => rt.Token == token).FirstOrDefaultAsync();

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "oVoVKPki3nU=",
+  "dgSpecHash": "LNBGvEp0v9M=",
   "success": true,
   "projectFilePath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Infrastructure\\BroChat.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\12.1.1\\fluentvalidation.dependencyinjectionextensions.12.1.1.nupkg.sha512",
@@ -12,6 +13,7 @@
     "C:\\Users\\user\\.nuget\\packages\\google.apis.auth\\1.73.0\\google.apis.auth.1.73.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\google.apis.core\\1.73.0\\google.apis.core.1.73.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\google.genai\\1.0.0\\google.genai.1.0.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\mailkit\\4.16.0\\mailkit.4.16.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.ai.abstractions\\10.1.1\\microsoft.extensions.ai.abstractions.10.1.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\10.0.0\\microsoft.extensions.configuration.abstractions.10.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
@@ -21,6 +23,7 @@
     "C:\\Users\\user\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\8.6.0\\microsoft.identitymodel.jsonwebtokens.8.6.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.identitymodel.logging\\8.6.0\\microsoft.identitymodel.logging.8.6.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.6.0\\microsoft.identitymodel.tokens.8.6.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\mimekit\\4.16.0\\mimekit.4.16.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\mimetypes\\2.5.2\\mimetypes.2.5.2.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\mongodb.bson\\3.1.0\\mongodb.bson.3.1.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\mongodb.driver\\3.1.0\\mongodb.driver.3.1.0.nupkg.sha512",
@@ -30,6 +33,7 @@
     "C:\\Users\\user\\.nuget\\packages\\system.codedom\\7.0.0\\system.codedom.7.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.6.0\\system.identitymodel.tokens.jwt.8.6.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.management\\7.0.2\\system.management.7.0.2.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\system.security.cryptography.pkcs\\10.0.0\\system.security.cryptography.pkcs.10.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
   ],
   "logs": []

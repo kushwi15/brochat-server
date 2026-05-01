@@ -49,7 +49,7 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
     var config = sp.GetRequiredService<IConfiguration>();
     return new MongoClient(config["MongoDb:ConnectionString"]);
 });
-builder.Services.AddScoped<MongoDbContext>();
+builder.Services.AddSingleton<MongoDbContext>();
 
 // Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -61,6 +61,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // Services
 builder.Services.AddScoped<ITokenService, JwtTokenService>();
 builder.Services.AddScoped<IExternalAuthService, GoogleAuthService>();
+builder.Services.AddScoped<IEmailService, SmtpEmailService>();
 builder.Services.AddHttpClient<IAiService, GeminiAiService>();
 
 // SignalR

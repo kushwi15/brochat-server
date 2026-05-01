@@ -28,6 +28,14 @@
           }
         }
       },
+      "BouncyCastle.Cryptography/2.6.2": {
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.6.2.46322"
+          }
+        }
+      },
       "DnsClient/1.6.1": {
         "runtime": {
           "lib/net5.0/DnsClient.dll": {
@@ -110,6 +118,17 @@
           "lib/net8.0/Google.GenAI.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "MailKit/4.16.0": {
+        "dependencies": {
+          "MimeKit": "4.16.0"
+        },
+        "runtime": {
+          "lib/net10.0/MailKit.dll": {
+            "assemblyVersion": "4.16.0.0",
+            "fileVersion": "4.16.0.0"
           }
         }
       },
@@ -217,6 +236,17 @@
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
             "assemblyVersion": "1.6.22.0",
             "fileVersion": "1.6.22.0"
+          }
+        }
+      },
+      "MimeKit/4.16.0": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.6.2"
+        },
+        "runtime": {
+          "lib/net10.0/MimeKit.dll": {
+            "assemblyVersion": "4.16.0.0",
+            "fileVersion": "4.16.0.0"
           }
         }
       },
@@ -489,6 +519,7 @@
           "BroChat.Application": "1.0.0",
           "Google.Apis.Auth": "1.73.0",
           "Google.GenAI": "1.0.0",
+          "MailKit": "4.16.0",
           "Microsoft.IdentityModel.Tokens": "8.6.0",
           "MongoDB.Driver": "3.1.0",
           "System.IdentityModel.Tokens.Jwt": "8.6.0"
@@ -514,6 +545,13 @@
       "sha512": "sha512-5YT3DKllmtkyW68PjURu/V1TOe4MKiByKwsRNVcfYE1S5KuFTeozdmKzyNzolKiQF391OXCaQtINvYT3j1ERzQ==",
       "path": "bcrypt.net-next/4.1.0",
       "hashPath": "bcrypt.net-next.4.1.0.nupkg.sha512"
+    },
+    "BouncyCastle.Cryptography/2.6.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7oWOcvnntmMKNzDLsdxAYqApt+AjpRpP2CShjMfIa3umZ42UQMvH0tl1qAliYPNYO6vTdcGMqnRrCPmsfzTI1w==",
+      "path": "bouncycastle.cryptography/2.6.2",
+      "hashPath": "bouncycastle.cryptography.2.6.2.nupkg.sha512"
     },
     "DnsClient/1.6.1": {
       "type": "package",
@@ -570,6 +608,13 @@
       "sha512": "sha512-Vc8fKbaxn0zrr6Pws19R/qW13RTRwBYARA3bK1cSIaILRVuRvzFJXLioWf6BseQL2h4WNyouakf/1XBo+HghCg==",
       "path": "google.genai/1.0.0",
       "hashPath": "google.genai.1.0.0.nupkg.sha512"
+    },
+    "MailKit/4.16.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-trJ82DOpAmo8i1jO1vNE+dGn4mPRyeYfy4swRcAGgMJhPoI1Kohf4OFJJf0+YIj4iUxgxPn8W+ht7e7KiYzSjg==",
+      "path": "mailkit/4.16.0",
+      "hashPath": "mailkit.4.16.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.Google/10.0.7": {
       "type": "package",
@@ -647,6 +692,13 @@
       "sha512": "sha512-aBvunmrdu/x+4CaA/UP1Jx4xWGwk4kymhoIRnn2Vp+zi5/KOPQJ9EkSXHRUr01WcGKtYl3Au7XfkPJbU1G2sjQ==",
       "path": "microsoft.openapi/1.6.22",
       "hashPath": "microsoft.openapi.1.6.22.nupkg.sha512"
+    },
+    "MimeKit/4.16.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-X0LFxeM4gPRIhODyY/HYS9b+zRZ7y//v59rFzgS6wLxcPuZThnMtNZHtrr0fjLyRRkg3gqJBtvW36XfUzZ7Djw==",
+      "path": "mimekit/4.16.0",
+      "hashPath": "mimekit.4.16.0.nupkg.sha512"
     },
     "MongoDB.Bson/3.1.0": {
       "type": "package",

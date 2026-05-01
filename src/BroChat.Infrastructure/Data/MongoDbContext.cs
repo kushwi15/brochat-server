@@ -43,10 +43,16 @@ public class MongoDbContext
         // Message Indexes
         Messages.Indexes.CreateOne(new CreateIndexModel<Message>(
             Builders<Message>.IndexKeys.Ascending(m => m.ConversationId)));
+
+        // GuestUsage Indexes
+        GuestUsages.Indexes.CreateOne(new CreateIndexModel<GuestUsage>(
+            Builders<GuestUsage>.IndexKeys.Ascending(gu => gu.GuestId),
+            new CreateIndexOptions { Unique = true }));
     }
 
     public IMongoCollection<User> Users => _database.GetCollection<User>("Users");
     public IMongoCollection<Conversation> Conversations => _database.GetCollection<Conversation>("Conversations");
     public IMongoCollection<Message> Messages => _database.GetCollection<Message>("Messages");
     public IMongoCollection<RefreshToken> RefreshTokens => _database.GetCollection<RefreshToken>("RefreshTokens");
+    public IMongoCollection<GuestUsage> GuestUsages => _database.GetCollection<GuestUsage>("GuestUsages");
 }

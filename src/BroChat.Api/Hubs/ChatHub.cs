@@ -7,26 +7,29 @@ using System.Security.Claims;
 
 namespace BroChat.Api.Hubs;
 
-[Authorize]
 public class ChatHub : Hub
 {
     private readonly IAiService _aiService;
     private readonly IConversationRepository _conversationRepository;
     private readonly IMessageRepository _messageRepository;
+    private readonly IGuestUsageRepository _guestUsageRepository;
     private readonly IUnitOfWork _unitOfWork;
 
     public ChatHub(
         IAiService aiService,
         IConversationRepository conversationRepository,
         IMessageRepository messageRepository,
+        IGuestUsageRepository guestUsageRepository,
         IUnitOfWork unitOfWork)
     {
         _aiService = aiService;
         _conversationRepository = conversationRepository;
         _messageRepository = messageRepository;
+        _guestUsageRepository = guestUsageRepository;
         _unitOfWork = unitOfWork;
     }
 
+    [Authorize]
     public async Task SendMessage(string conversationIdStr, string messageContent)
     {
         if (!Guid.TryParse(conversationIdStr, out var conversationId))
@@ -84,6 +87,54 @@ public class ChatHub : Hub
         };
         await _messageRepository.AddAsync(aiMessage);
         await _unitOfWork.SaveChangesAsync();
+
+        await Clients.Caller.SendAsync("MessageComplete", aiMessageId);
+    }
+
+    public async Task SendGuestMessage(string guestId, string messageContent)
+    {
+        if (string.IsNullOrWhiteSpace(guestId))
+        {
+            await Clients.Caller.SendAsync("Error", "Invalid guest ID");
+            return;
+        }
+
+        var usage = await _guestUsageRepository.GetByGuestIdAsync(guestId);
+        if (usage == null)
+        {
+            usage = new GuestUsage { GuestId = guestId, RequestCount = 0, LastResetTime = DateTime.UtcNow };
+        }
+
+        // Reset count if 10 mins passed
+        if (DateTime.UtcNow - usage.LastResetTime > TimeSpan.FromMinutes(10))
+        {
+            usage.RequestCount = 0;
+            usage.LastResetTime = DateTime.UtcNow;
+        }
+
+        if (usage.RequestCount >= 5)
+        {
+            await Clients.Caller.SendAsync("Error", "Guest limit reached. Please register or wait 10 minutes.");
+            return;
+        }
+
+        usage.RequestCount++;
+        await _guestUsageRepository.UpsertAsync(usage);
+
+        var aiMessageId = Guid.NewGuid().ToString();
+        try
+        {
+            // Guests don't have history in this implementation for simplicity
+            await foreach (var chunk in _aiService.StreamChatResponseAsync(Enumerable.Empty<Message>(), messageContent))
+            {
+                await Clients.Caller.SendAsync("ReceiveMessageChunk", aiMessageId, chunk);
+            }
+        }
+        catch (Exception ex)
+        {
+            await Clients.Caller.SendAsync("Error", "AI Error: " + ex.Message);
+            return;
+        }
 
         await Clients.Caller.SendAsync("MessageComplete", aiMessageId);
     }

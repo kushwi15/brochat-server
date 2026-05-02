@@ -42,9 +42,11 @@ public class TenantService : ITenantService
             return _defaultDatabaseName;
         }
 
-        // Return a database name specific to the user
-        // We sanitize the ID to ensure it's a valid MongoDB database name (alphanumeric and underscores)
-        var sanitizedId = tenantId.Replace("-", "_").ToLower();
-        return $"{_defaultDatabaseName}_user_{sanitizedId}";
+        // MongoDB Atlas has a 38-character limit for database names.
+        // We need to keep this short while still being unique per user.
+        // Format: u_{first_8_chars_of_guid}
+        var shortId = tenantId.Replace("-", "").Substring(0, 8);
+        return $"u_{shortId}";
     }
+
 }

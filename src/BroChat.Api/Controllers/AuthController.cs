@@ -15,14 +15,16 @@ public class AuthController : ControllerBase
     private readonly ITokenService _tokenService;
     private readonly IExternalAuthService _externalAuthService;
     private readonly IEmailService _emailService;
+    private readonly IConfiguration _configuration;
     private readonly IUnitOfWork _unitOfWork;
 
-    public AuthController(IUserRepository userRepository, ITokenService tokenService, IExternalAuthService externalAuthService, IEmailService emailService, IUnitOfWork unitOfWork)
+    public AuthController(IUserRepository userRepository, ITokenService tokenService, IExternalAuthService externalAuthService, IEmailService emailService, IConfiguration configuration, IUnitOfWork unitOfWork)
     {
         _userRepository = userRepository;
         _tokenService = tokenService;
         _externalAuthService = externalAuthService;
         _emailService = emailService;
+        _configuration = configuration;
         _unitOfWork = unitOfWork;
     }
 
@@ -94,21 +96,7 @@ public class AuthController : ControllerBase
 
             if (user == null)
             {
-                // Register a new user
-                user = new User
-                {
-                    Email = externalUser.Email,
-                    Name = externalUser.Name
-                };
-                
-                user.AuthProviders.Add(new AuthProvider
-                {
-                    ProviderName = "Google",
-                    ProviderSubjectId = externalUser.ProviderSubjectId
-                });
-
-                await _userRepository.AddAsync(user);
-                await _unitOfWork.SaveChangesAsync();
+                return Unauthorized(new { Message = "No account found for this Google email. Please register first." });
             }
             else
             {
@@ -212,7 +200,10 @@ public class AuthController : ControllerBase
         await _unitOfWork.SaveChangesAsync();
 
         // Send email
-        var resetLink = $"{Request.Headers["Origin"]}/reset-password?token={token}";
+        var baseUrl = _configuration["Frontend:BaseUrl"] ?? Request.Headers["Origin"].ToString();
+        if (string.IsNullOrEmpty(baseUrl)) baseUrl = "http://localhost:5173"; // Final fallback
+        
+        var resetLink = $"{baseUrl}/reset-password?token={token}";
         var body = $@"
 <div style=""font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 40px 20px; background-color: #f8fafc;"">
     <div style=""background-color: #ffffff; padding: 40px; border-radius: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); text-align: center; border: 1px solid #e2e8f0;"">
@@ -264,11 +255,12 @@ public class AuthController : ControllerBase
 
     private void SetRefreshTokenCookie(string token, DateTime expiresAt)
     {
+        var isProduction = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production";
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
-            Secure = true, // should be true in production
-            SameSite = SameSiteMode.Strict,
+            Secure = isProduction,           // Only require HTTPS in production
+            SameSite = isProduction ? SameSiteMode.None : SameSiteMode.Lax, // None for cross-domain in prod
             Expires = expiresAt
         };
         Response.Cookies.Append("refreshToken", token, cookieOptions);

@@ -28,13 +28,12 @@ public class MongoDbContext
         }
     }
 
-    public MongoDbContext(IConfiguration configuration, ITenantService tenantService)
+    public MongoDbContext(IMongoClient client, IConfiguration configuration, ITenantService tenantService)
     {
+        _client = client;
         _tenantService = tenantService;
-        var connectionString = configuration["MongoDb:ConnectionString"] ?? throw new ArgumentNullException("MongoDb:ConnectionString");
         var sharedDatabaseName = configuration["MongoDb:DatabaseName"] ?? "brochat";
         
-        _client = new MongoClient(connectionString);
         _sharedDatabase = _client.GetDatabase(sharedDatabaseName);
 
         CreateSharedIndexes();
@@ -65,6 +64,15 @@ public class MongoDbContext
                 new CreateIndexOptions { Unique = true }));
         }
         catch (Exception ex) { Console.WriteLine($"GuestUsage index warning: {ex.Message}"); }
+
+        // RefreshToken TTL Index (Auto-delete expired tokens)
+        try
+        {
+            RefreshTokens.Indexes.CreateOne(new CreateIndexModel<RefreshToken>(
+                Builders<RefreshToken>.IndexKeys.Ascending(rt => rt.ExpiresAt),
+                new CreateIndexOptions { ExpireAfter = TimeSpan.Zero }));
+        }
+        catch (Exception ex) { Console.WriteLine($"RefreshToken TTL index warning: {ex.Message}"); }
     }
 
     private void CreateTenantIndexes()

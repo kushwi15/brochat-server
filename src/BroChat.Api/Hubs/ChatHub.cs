@@ -3,6 +3,7 @@ using BroChat.Domain.Entities;
 using BroChat.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using System.Collections.Concurrent;
 using System.Security.Claims;
 
 namespace BroChat.Api.Hubs;
@@ -14,6 +15,9 @@ public class ChatHub : Hub
     private readonly IMessageRepository _messageRepository;
     private readonly IGuestUsageRepository _guestUsageRepository;
     private readonly IUnitOfWork _unitOfWork;
+
+    // Tracks active streaming cancellation tokens per SignalR connection
+    private static readonly ConcurrentDictionary<string, CancellationTokenSource> _activeSessions = new();
 
     public ChatHub(
         IAiService aiService,
@@ -27,6 +31,27 @@ public class ChatHub : Hub
         _messageRepository = messageRepository;
         _guestUsageRepository = guestUsageRepository;
         _unitOfWork = unitOfWork;
+    }
+
+    /// <summary>Client can invoke this to cancel the current streaming response.</summary>
+    public Task CancelGeneration()
+    {
+        if (_activeSessions.TryRemove(Context.ConnectionId, out var cts))
+        {
+            cts.Cancel();
+            cts.Dispose();
+        }
+        return Task.CompletedTask;
+    }
+
+    public override Task OnDisconnectedAsync(Exception? exception)
+    {
+        if (_activeSessions.TryRemove(Context.ConnectionId, out var cts))
+        {
+            cts.Cancel();
+            cts.Dispose();
+        }
+        return base.OnDisconnectedAsync(exception);
     }
 
     [Authorize]
@@ -47,6 +72,10 @@ public class ChatHub : Hub
             return;
         }
 
+        // Register a CancellationTokenSource for this stream
+        var cts = new CancellationTokenSource();
+        _activeSessions[Context.ConnectionId] = cts;
+
         // Save User Message
         var userMessage = new Message
         {
@@ -62,20 +91,30 @@ public class ChatHub : Hub
 
         // Stream AI response
         var fullAiResponse = "";
-        var aiMessageId = Guid.NewGuid().ToString(); // Generate a temp ID for the frontend
+        var aiMessageId = Guid.NewGuid().ToString();
 
         try
         {
-            await foreach (var chunk in _aiService.StreamChatResponseAsync(history.Where(m => m.Id != userMessage.Id), messageContent))
+            await foreach (var chunk in _aiService.StreamChatResponseAsync(history.Where(m => m.Id != userMessage.Id), messageContent, cts.Token))
             {
+                if (cts.Token.IsCancellationRequested) break;
                 fullAiResponse += chunk;
-                await Clients.Caller.SendAsync("ReceiveMessageChunk", aiMessageId, chunk);
+                await Clients.Caller.SendAsync("ReceiveMessageChunk", aiMessageId, chunk, cts.Token);
             }
+        }
+        catch (OperationCanceledException)
+        {
+            // User cancelled — save whatever was streamed so far
         }
         catch (Exception ex)
         {
             await Clients.Caller.SendAsync("Error", "AI Error: " + ex.Message);
             return;
+        }
+        finally
+        {
+            _activeSessions.TryRemove(Context.ConnectionId, out _);
+            cts.Dispose();
         }
 
         // Save AI Message

@@ -86,6 +86,7 @@ C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\B
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\BroChat.Api.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\BroChat.Api.pdb
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\BCrypt.Net-Next.dll
+C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\BouncyCastle.Cryptography.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\DnsClient.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\DotNetEnv.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\FluentValidation.dll
@@ -94,6 +95,7 @@ C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\G
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\Google.Apis.Auth.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\Google.Apis.Core.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\Google.GenAI.dll
+C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\MailKit.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.Google.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\Microsoft.Extensions.AI.Abstractions.dll
@@ -105,6 +107,7 @@ C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\M
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\Microsoft.OpenApi.dll
+C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\MimeKit.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\MongoDB.Bson.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\MongoDB.Driver.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Api\bin\Debug\net10.0\Newtonsoft.Json.dll

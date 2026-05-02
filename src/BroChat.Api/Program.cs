@@ -47,8 +47,16 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddSingleton<IMongoClient>(sp => 
 {
     var config = sp.GetRequiredService<IConfiguration>();
-    return new MongoClient(config["MongoDb:ConnectionString"]);
+    var connectionString = config["MongoDb:ConnectionString"];
+    
+    var settings = MongoClientSettings.FromConnectionString(connectionString);
+    // Add some robustness for Atlas free tier
+    settings.ConnectTimeout = TimeSpan.FromSeconds(30);
+    settings.ServerSelectionTimeout = TimeSpan.FromSeconds(30);
+    
+    return new MongoClient(settings);
 });
+
 builder.Services.AddScoped<MongoDbContext>();
 
 // Repositories

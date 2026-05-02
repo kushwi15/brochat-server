@@ -49,7 +49,7 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
     var config = sp.GetRequiredService<IConfiguration>();
     return new MongoClient(config["MongoDb:ConnectionString"]);
 });
-builder.Services.AddSingleton<MongoDbContext>();
+builder.Services.AddScoped<MongoDbContext>();
 
 // Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -59,10 +59,13 @@ builder.Services.AddScoped<IGuestUsageRepository, GuestUsageRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Services
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ITenantService, TenantService>();
 builder.Services.AddScoped<ITokenService, JwtTokenService>();
 builder.Services.AddScoped<IExternalAuthService, GoogleAuthService>();
 builder.Services.AddScoped<IEmailService, SmtpEmailService>();
 builder.Services.AddHttpClient<IAiService, GeminiAiService>();
+
 
 // SignalR
 builder.Services.AddSignalR();
@@ -136,12 +139,23 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<ExceptionMiddleware>();
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+    await next();
+});
+
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
 
 app.UseCors("DefaultPolicy");
 

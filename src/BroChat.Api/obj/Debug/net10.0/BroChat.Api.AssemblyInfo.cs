@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BroChat.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48700918d454611875ddc8e28cf519e877c1ca79")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3374f088251103546aea18de0dba2e1156ac3928")]
 [assembly: System.Reflection.AssemblyProductAttribute("BroChat.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BroChat.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -808,7 +808,10 @@
         },
         "runtime": {
           "bin/placeholder/BroChat.Infrastructure.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },

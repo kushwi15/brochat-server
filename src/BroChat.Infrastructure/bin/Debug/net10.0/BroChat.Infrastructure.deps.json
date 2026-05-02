@@ -12,7 +12,7 @@
           "BroChat.Application": "1.0.0",
           "Google.Apis.Auth": "1.73.0",
           "Google.GenAI": "1.0.0",
-          "Microsoft.Extensions.Configuration.Abstractions": "10.0.0",
+          "MailKit": "4.16.0",
           "Microsoft.IdentityModel.Tokens": "8.6.0",
           "MongoDB.Driver": "3.1.0",
           "System.IdentityModel.Tokens.Jwt": "8.6.0"
@@ -26,6 +26,14 @@
           "lib/net10.0/BCrypt.Net-Next.dll": {
             "assemblyVersion": "4.1.0.0",
             "fileVersion": "4.1.0.0"
+          }
+        }
+      },
+      "BouncyCastle.Cryptography/2.6.2": {
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.6.2.46322"
           }
         }
       },
@@ -47,8 +55,7 @@
       },
       "FluentValidation.DependencyInjectionExtensions/12.1.1": {
         "dependencies": {
-          "FluentValidation": "12.1.1",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
+          "FluentValidation": "12.1.1"
         },
         "runtime": {
           "lib/net8.0/FluentValidation.DependencyInjectionExtensions.dll": {
@@ -104,49 +111,22 @@
           }
         }
       },
+      "MailKit/4.16.0": {
+        "dependencies": {
+          "MimeKit": "4.16.0"
+        },
+        "runtime": {
+          "lib/net10.0/MailKit.dll": {
+            "assemblyVersion": "4.16.0.0",
+            "fileVersion": "4.16.0.0"
+          }
+        }
+      },
       "Microsoft.Extensions.AI.Abstractions/10.1.1": {
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll": {
             "assemblyVersion": "10.1.0.0",
             "fileVersion": "10.100.125.61202"
-          }
-        }
-      },
-      "Microsoft.Extensions.Configuration.Abstractions/10.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Primitives": "10.0.0"
-        },
-        "runtime": {
-          "lib/net10.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
-            "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.25.52411"
-          }
-        }
-      },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.2": {
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.1024.46610"
-          }
-        }
-      },
-      "Microsoft.Extensions.Logging.Abstractions/8.0.2": {
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.1024.46610"
-          }
-        }
-      },
-      "Microsoft.Extensions.Primitives/10.0.0": {
-        "runtime": {
-          "lib/net10.0/Microsoft.Extensions.Primitives.dll": {
-            "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.25.52411"
           }
         }
       },
@@ -182,13 +162,23 @@
       },
       "Microsoft.IdentityModel.Tokens/8.6.0": {
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
           "Microsoft.IdentityModel.Logging": "8.6.0"
         },
         "runtime": {
           "lib/net9.0/Microsoft.IdentityModel.Tokens.dll": {
             "assemblyVersion": "8.6.0.0",
             "fileVersion": "8.6.0.60222"
+          }
+        }
+      },
+      "MimeKit/4.16.0": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.6.2"
+        },
+        "runtime": {
+          "lib/net10.0/MimeKit.dll": {
+            "assemblyVersion": "4.16.0.0",
+            "fileVersion": "4.16.0.0"
           }
         }
       },
@@ -203,7 +193,6 @@
       "MongoDB.Driver/3.1.0": {
         "dependencies": {
           "DnsClient": "1.6.1",
-          "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
           "MongoDB.Bson": "3.1.0",
           "SharpCompress": "0.30.1",
           "Snappier": "1.0.0",
@@ -322,6 +311,13 @@
       "path": "bcrypt.net-next/4.1.0",
       "hashPath": "bcrypt.net-next.4.1.0.nupkg.sha512"
     },
+    "BouncyCastle.Cryptography/2.6.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7oWOcvnntmMKNzDLsdxAYqApt+AjpRpP2CShjMfIa3umZ42UQMvH0tl1qAliYPNYO6vTdcGMqnRrCPmsfzTI1w==",
+      "path": "bouncycastle.cryptography/2.6.2",
+      "hashPath": "bouncycastle.cryptography.2.6.2.nupkg.sha512"
+    },
     "DnsClient/1.6.1": {
       "type": "package",
       "serviceable": true,
@@ -371,40 +367,19 @@
       "path": "google.genai/1.0.0",
       "hashPath": "google.genai.1.0.0.nupkg.sha512"
     },
+    "MailKit/4.16.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-trJ82DOpAmo8i1jO1vNE+dGn4mPRyeYfy4swRcAGgMJhPoI1Kohf4OFJJf0+YIj4iUxgxPn8W+ht7e7KiYzSjg==",
+      "path": "mailkit/4.16.0",
+      "hashPath": "mailkit.4.16.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.AI.Abstractions/10.1.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-cgj8iHv4JwUpcPANZ0oLILz146Y1Oa+l280b1c1a3DjwZflH9nmYcrX952YUuqftz2sheAC2TPCGcEa6unKQgQ==",
       "path": "microsoft.extensions.ai.abstractions/10.1.1",
       "hashPath": "microsoft.extensions.ai.abstractions.10.1.1.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Configuration.Abstractions/10.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-d2kDKnCsJvY7mBVhcjPSp9BkJk48DsaHPg5u+Oy4f8XaOqnEedRy/USyvnpHL92wpJ6DrTPy7htppUUzskbCXQ==",
-      "path": "microsoft.extensions.configuration.abstractions/10.0.0",
-      "hashPath": "microsoft.extensions.configuration.abstractions.10.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-3iE7UF7MQkCv1cxzCahz+Y/guQbTqieyxyaWKhrRO91itI9cOKO76OHeQDahqG4MmW5umr3CcCvGmK92lWNlbg==",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/8.0.2",
-      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Logging.Abstractions/8.0.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-nroMDjS7hNBPtkZqVBbSiQaQjWRDxITI8Y7XnDs97rqG3EbzVTNLZQf7bIeUJcaHOV8bca47s1Uxq94+2oGdxA==",
-      "path": "microsoft.extensions.logging.abstractions/8.0.2",
-      "hashPath": "microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Primitives/10.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-inRnbpCS0nwO/RuoZIAqxQUuyjaknOOnCEZB55KSMMjRhl0RQDttSmLSGsUJN3RQ3ocf5NDLFd2mOQViHqMK5w==",
-      "path": "microsoft.extensions.primitives/10.0.0",
-      "hashPath": "microsoft.extensions.primitives.10.0.0.nupkg.sha512"
     },
     "Microsoft.IdentityModel.Abstractions/8.6.0": {
       "type": "package",
@@ -433,6 +408,13 @@
       "sha512": "sha512-ga4ASKm8EezJ+Oj4uvTNE0xjIWy27Ix5pOZz737CnLzxv7ClFnelX+YWbFuiO1Qj2zVoIpsPqKJRGHGlpFF6eQ==",
       "path": "microsoft.identitymodel.tokens/8.6.0",
       "hashPath": "microsoft.identitymodel.tokens.8.6.0.nupkg.sha512"
+    },
+    "MimeKit/4.16.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-X0LFxeM4gPRIhODyY/HYS9b+zRZ7y//v59rFzgS6wLxcPuZThnMtNZHtrr0fjLyRRkg3gqJBtvW36XfUzZ7Djw==",
+      "path": "mimekit/4.16.0",
+      "hashPath": "mimekit.4.16.0.nupkg.sha512"
     },
     "MongoDB.Bson/3.1.0": {
       "type": "package",

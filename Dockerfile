@@ -24,7 +24,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 COPY --from=build /out .
 
-ENV ASPNETCORE_URLS=http://+:80
-EXPOSE 80
+# Render provides the PORT environment variable
+ENV ASPNETCORE_URLS=http://+:10000
+EXPOSE 10000
 
 ENTRYPOINT ["dotnet", "BroChat.Api.dll"]

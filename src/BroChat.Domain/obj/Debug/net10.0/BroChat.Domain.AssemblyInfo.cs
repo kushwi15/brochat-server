@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BroChat.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+099341dc056edd84d2aabde8564154b998b71e4b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0484689a0bef9488da5c517ecf0c974dfae40c1")]
 [assembly: System.Reflection.AssemblyProductAttribute("BroChat.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BroChat.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

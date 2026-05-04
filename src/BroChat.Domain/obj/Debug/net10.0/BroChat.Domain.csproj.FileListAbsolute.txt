@@ -22,3 +22,15 @@ C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\refint\BroChat.Domain.dll
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.pdb
 C:\Users\user\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\ref\BroChat.Domain.dll
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\bin\Debug\net10.0\BroChat.Domain.deps.json
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\bin\Debug\net10.0\BroChat.Domain.dll
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\bin\Debug\net10.0\BroChat.Domain.pdb
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.AssemblyInfoInputs.cache
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.AssemblyInfo.cs
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.csproj.CoreCompileInputs.cache
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.sourcelink.json
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.dll
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\refint\BroChat.Domain.dll
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\BroChat.Domain.pdb
+C:\Users\TEKTS-19\Desktop\brochat\brochat-server\src\BroChat.Domain\obj\Debug\net10.0\ref\BroChat.Domain.dll

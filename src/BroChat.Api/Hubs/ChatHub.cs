@@ -177,4 +177,83 @@ public class ChatHub : Hub
 
         await Clients.Caller.SendAsync("MessageComplete", aiMessageId);
     }
+
+    public async Task RegenerateResponse(string conversationIdStr)
+    {
+        if (!Guid.TryParse(conversationIdStr, out var conversationId))
+        {
+            await Clients.Caller.SendAsync("Error", "Invalid conversation ID");
+            return;
+        }
+
+        var userId = Guid.Parse(Context.User!.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var conversation = await _conversationRepository.GetByIdAsync(conversationId);
+        
+        if (conversation == null || conversation.UserId != userId)
+        {
+            await Clients.Caller.SendAsync("Error", "Conversation not found or access denied.");
+            return;
+        }
+
+        var messages = (await _messageRepository.GetByConversationIdAsync(conversationId)).ToList();
+        if (!messages.Any()) return;
+
+        // If the last message is from AI, delete it before regenerating
+        var lastMessage = messages.Last();
+        if (lastMessage.Role == MessageRole.AI)
+        {
+            await _messageRepository.DeleteAsync(lastMessage);
+            await _unitOfWork.SaveChangesAsync();
+            messages.RemoveAt(messages.Count - 1);
+        }
+
+        if (!messages.Any() || messages.Last().Role != MessageRole.User)
+        {
+            await Clients.Caller.SendAsync("Error", "No user message found to regenerate from.");
+            return;
+        }
+
+        var lastUserMessage = messages.Last();
+        var history = messages.Take(messages.Count - 1);
+
+        // Register a CancellationTokenSource for this stream
+        var cts = new CancellationTokenSource();
+        _activeSessions[Context.ConnectionId] = cts;
+
+        var fullAiResponse = "";
+        var aiMessageId = Guid.NewGuid().ToString();
+
+        try
+        {
+            await foreach (var chunk in _aiService.StreamChatResponseAsync(history, lastUserMessage.Content, cts.Token))
+            {
+                if (cts.Token.IsCancellationRequested) break;
+                fullAiResponse += chunk;
+                await Clients.Caller.SendAsync("ReceiveMessageChunk", aiMessageId, chunk, cts.Token);
+            }
+        }
+        catch (OperationCanceledException) { }
+        catch (Exception ex)
+        {
+            await Clients.Caller.SendAsync("Error", "AI Error: " + ex.Message);
+            return;
+        }
+        finally
+        {
+            _activeSessions.TryRemove(Context.ConnectionId, out _);
+            cts.Dispose();
+        }
+
+        // Save AI Message
+        var aiMessage = new Message
+        {
+            ConversationId = conversationId,
+            Role = MessageRole.AI,
+            Content = fullAiResponse
+        };
+        await _messageRepository.AddAsync(aiMessage);
+        await _unitOfWork.SaveChangesAsync();
+
+        await Clients.Caller.SendAsync("MessageComplete", aiMessageId);
+    }
 }

@@ -24,6 +24,16 @@ public class CreateConversationRequest
     public string Title { get; set; } = string.Empty;
 }
 
+public class UpdateConversationRequest
+{
+    public string Title { get; set; } = string.Empty;
+}
+
+public class UpdateMessageRequest
+{
+    public string Content { get; set; } = string.Empty;
+}
+
 public class SendMessageRequest
 {
     public Guid ConversationId { get; set; }

@@ -114,19 +114,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {}
+    "C:\\Users\\TEKTS-19\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj",
+      "projectUniqueName": "C:\\Users\\TEKTS-19\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj",
       "projectName": "BroChat.Application",
-      "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\obj\\",
+      "projectPath": "C:\\Users\\TEKTS-19\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\BroChat.Application.csproj",
+      "packagesPath": "C:\\Users\\TEKTS-19\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\TEKTS-19\\Desktop\\brochat\\brochat-server\\src\\BroChat.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\TEKTS-19\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -138,8 +138,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj": {
-              "projectPath": "C:\\Users\\user\\Desktop\\brochat\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj"
+            "C:\\Users\\TEKTS-19\\Desktop\\brochat\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj": {
+              "projectPath": "C:\\Users\\TEKTS-19\\Desktop\\brochat\\brochat-server\\src\\BroChat.Domain\\BroChat.Domain.csproj"
             }
           }
         }
@@ -458,5 +458,13 @@
         }
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
+    }
+  ]
 }

@@ -22,6 +22,7 @@ public class GeminiAiService : IAiService
     public async IAsyncEnumerable<string> StreamChatResponseAsync(
         IEnumerable<Message> history, 
         string newPrompt, 
+        IEnumerable<FileAttachment>? attachments = null,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var requestUrl = $"v1beta/models/gemini-3-flash-preview:streamGenerateContent?alt=sse&key={_apiKey}";
@@ -29,35 +30,66 @@ public class GeminiAiService : IAiService
         // Ensure alternating roles for Gemini
         var contents = new List<object>();
         string lastRole = "";
-
+ 
         foreach (var m in history.OrderBy(m => m.Timestamp))
         {
             var currentRole = m.Role == Domain.Enums.MessageRole.User ? "user" : "model";
             if (currentRole == lastRole) continue;
 
+            var parts = new List<object>();
+            parts.Add(new { text = m.Content });
+
+            if (m.Attachments != null && m.Attachments.Any())
+            {
+                foreach (var attachment in m.Attachments)
+                {
+                    var filePart = await GetFilePartAsync(attachment.Url, attachment.Type);
+                    if (filePart != null) parts.Add(filePart);
+                }
+            }
+
             contents.Add(new
             {
                 role = currentRole,
-                parts = new[] { new { text = m.Content } }
+                parts = parts.ToArray()
             });
             lastRole = currentRole;
         }
 
+        // Add the new prompt
+        var finalParts = new List<object> { new { text = newPrompt } };
+        if (attachments != null)
+        {
+            foreach (var attachment in attachments)
+            {
+                var filePart = await GetFilePartAsync(attachment.Url, attachment.Type);
+                if (filePart != null) finalParts.Add(filePart);
+            }
+        }
+        
+        // Check if the LAST message in history was from user and already had a file, 
+        // we might want to handle that, but typically the "newPrompt" is the one associated with the NEW file.
+        // For simplicity, we assume the file is already in history if we just saved it.
+        
         if (lastRole != "user")
         {
             contents.Add(new
             {
                 role = "user",
-                parts = new[] { new { text = newPrompt } }
+                parts = finalParts.ToArray()
             });
         }
         else
         {
+            // Append to last user message if exists
             var lastContent = (dynamic)contents[^1];
+            var existingParts = new List<object>(lastContent.parts);
+            existingParts.Add(new { text = "\n" + newPrompt });
+            
             contents[^1] = new
             {
                 role = "user",
-                parts = new[] { new { text = lastContent.parts[0].text + "\n" + newPrompt } }
+                parts = existingParts.ToArray()
             };
         }
 
@@ -108,6 +140,29 @@ public class GeminiAiService : IAiService
                     }
                 }
             }
+        }
+    }
+
+    private async Task<object?> GetFilePartAsync(string url, string? fileType)
+    {
+        try
+        {
+            var bytes = await _httpClient.GetByteArrayAsync(url);
+            var base64 = Convert.ToBase64String(bytes);
+            var mimeType = fileType ?? "image/jpeg";
+
+            return new
+            {
+                inlineData = new
+                {
+                    mimeType = mimeType,
+                    data = base64
+                }
+            };
+        }
+        catch
+        {
+            return null;
         }
     }
 }

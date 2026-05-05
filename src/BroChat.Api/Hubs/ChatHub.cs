@@ -55,7 +55,7 @@ public class ChatHub : Hub
     }
 
     [Authorize]
-    public async Task SendMessage(string conversationIdStr, string messageContent)
+    public async Task SendMessage(string conversationIdStr, string messageContent, List<FileAttachment>? attachments = null)
     {
         if (!Guid.TryParse(conversationIdStr, out var conversationId))
         {
@@ -81,7 +81,8 @@ public class ChatHub : Hub
         {
             ConversationId = conversationId,
             Role = MessageRole.User,
-            Content = messageContent
+            Content = messageContent,
+            Attachments = attachments ?? new()
         };
         await _messageRepository.AddAsync(userMessage);
         await _unitOfWork.SaveChangesAsync();
@@ -95,7 +96,7 @@ public class ChatHub : Hub
 
         try
         {
-            await foreach (var chunk in _aiService.StreamChatResponseAsync(history.Where(m => m.Id != userMessage.Id), messageContent, cts.Token))
+            await foreach (var chunk in _aiService.StreamChatResponseAsync(history.Where(m => m.Id != userMessage.Id), messageContent, attachments, cts.Token))
             {
                 if (cts.Token.IsCancellationRequested) break;
                 fullAiResponse += chunk;
@@ -130,7 +131,7 @@ public class ChatHub : Hub
         await Clients.Caller.SendAsync("MessageComplete", aiMessageId);
     }
 
-    public async Task SendGuestMessage(string guestId, string messageContent)
+    public async Task SendGuestMessage(string guestId, string messageContent, List<FileAttachment>? attachments = null)
     {
         if (string.IsNullOrWhiteSpace(guestId))
         {
@@ -164,7 +165,7 @@ public class ChatHub : Hub
         try
         {
             // Guests don't have history in this implementation for simplicity
-            await foreach (var chunk in _aiService.StreamChatResponseAsync(Enumerable.Empty<Message>(), messageContent))
+            await foreach (var chunk in _aiService.StreamChatResponseAsync(Enumerable.Empty<Message>(), messageContent, attachments))
             {
                 await Clients.Caller.SendAsync("ReceiveMessageChunk", aiMessageId, chunk);
             }
@@ -225,7 +226,7 @@ public class ChatHub : Hub
 
         try
         {
-            await foreach (var chunk in _aiService.StreamChatResponseAsync(history, lastUserMessage.Content, cts.Token))
+            await foreach (var chunk in _aiService.StreamChatResponseAsync(history, lastUserMessage.Content, lastUserMessage.Attachments, cts.Token))
             {
                 if (cts.Token.IsCancellationRequested) break;
                 fullAiResponse += chunk;

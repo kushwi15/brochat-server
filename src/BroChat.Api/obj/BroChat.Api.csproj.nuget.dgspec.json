@@ -1233,6 +1233,10 @@
               "target": "Package",
               "version": "[4.1.0, )"
             },
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.29.0, )"
+            },
             "Google.Apis.Auth": {
               "target": "Package",
               "version": "[1.73.0, )"

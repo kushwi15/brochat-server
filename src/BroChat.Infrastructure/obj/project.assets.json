@@ -28,6 +28,22 @@
           }
         }
       },
+      "CloudinaryDotNet/1.29.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/CloudinaryDotNet.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/CloudinaryDotNet.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "DnsClient/1.6.1": {
         "type": "package",
         "compile": {
@@ -486,6 +502,25 @@
         "lib/netstandard2.0/BouncyCastle.Cryptography.dll",
         "lib/netstandard2.0/BouncyCastle.Cryptography.xml",
         "packageIcon.png"
+      ]
+    },
+    "CloudinaryDotNet/1.29.0": {
+      "sha512": "z1Y9NvD2k5QxEtU5kF//G0f9RtpwHHijPpix9CMeI0tJv4/yTfYZoJ7ONTLQFSlv4Gkmo05wh+Uno0S72hX71g==",
+      "type": "package",
+      "path": "cloudinarydotnet/1.29.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CloudinaryIcon.png",
+        "README.md",
+        "cloudinarydotnet.1.29.0.nupkg.sha512",
+        "cloudinarydotnet.nuspec",
+        "lib/net452/CloudinaryDotNet.dll",
+        "lib/net452/CloudinaryDotNet.xml",
+        "lib/netstandard1.3/CloudinaryDotNet.dll",
+        "lib/netstandard1.3/CloudinaryDotNet.xml",
+        "lib/netstandard2.0/CloudinaryDotNet.dll",
+        "lib/netstandard2.0/CloudinaryDotNet.xml"
       ]
     },
     "DnsClient/1.6.1": {
@@ -1096,6 +1131,7 @@
     "net10.0": [
       "BCrypt.Net-Next >= 4.1.0",
       "BroChat.Application >= 1.0.0",
+      "CloudinaryDotNet >= 1.29.0",
       "Google.Apis.Auth >= 1.73.0",
       "Google.GenAI >= 1.0.0",
       "MailKit >= 4.16.0",
@@ -1154,6 +1190,10 @@
           "BCrypt.Net-Next": {
             "target": "Package",
             "version": "[4.1.0, )"
+          },
+          "CloudinaryDotNet": {
+            "target": "Package",
+            "version": "[1.29.0, )"
           },
           "Google.Apis.Auth": {
             "target": "Package",

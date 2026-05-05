@@ -73,6 +73,7 @@ builder.Services.AddScoped<ITokenService, JwtTokenService>();
 builder.Services.AddScoped<IExternalAuthService, GoogleAuthService>();
 builder.Services.AddScoped<IEmailService, SmtpEmailService>();
 builder.Services.AddHttpClient<IAiService, GeminiAiService>();
+builder.Services.AddScoped<IFileService, CloudinaryFileService>();
 
 
 // SignalR

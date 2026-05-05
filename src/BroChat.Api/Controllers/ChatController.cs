@@ -76,7 +76,13 @@ public class ChatController : ControllerBase
             ConversationId = m.ConversationId,
             Role = m.Role,
             Content = m.Content,
-            Timestamp = m.Timestamp
+            Timestamp = m.Timestamp,
+            Attachments = m.Attachments.Select(a => new FileAttachmentDto
+            {
+                Url = a.Url,
+                Type = a.Type,
+                Name = a.Name
+            }).ToList()
         }));
     }
 
@@ -150,7 +156,13 @@ public class ChatController : ControllerBase
             ConversationId = message.ConversationId,
             Role = message.Role,
             Content = message.Content,
-            Timestamp = message.Timestamp
+            Timestamp = message.Timestamp,
+            Attachments = message.Attachments.Select(a => new FileAttachmentDto
+            {
+                Url = a.Url,
+                Type = a.Type,
+                Name = a.Name
+            }).ToList()
         });
     }
 }

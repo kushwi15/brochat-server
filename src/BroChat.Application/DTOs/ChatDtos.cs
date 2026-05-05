@@ -16,7 +16,15 @@ public class MessageDto
     public Guid ConversationId { get; set; }
     public MessageRole Role { get; set; }
     public string Content { get; set; } = string.Empty;
+    public List<FileAttachmentDto> Attachments { get; set; } = new();
     public DateTime Timestamp { get; set; }
+}
+
+public class FileAttachmentDto
+{
+    public string Url { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 }
 
 public class CreateConversationRequest

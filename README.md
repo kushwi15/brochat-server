@@ -14,13 +14,14 @@ The BroChat Backend is a production-ready **.NET 10 Web API** architected with C
 - **Interfaces**: Defines the "contracts" for all infrastructure services, ensuring the core logic remains independent of specific technologies like MongoDB or Gemini.
 
 ### 3. BroChat.Domain (The Heart)
-- **Entities**: Domain models like `User`, `Conversation`, `Message`. Note that `Message` includes a `Role` (User/AI) and a `Timestamp`.
+- **Entities**: Domain models like `User`, `Conversation`, `Message`. Note that `Message` now supports a `List<FileAttachment>` for robust multimodal support.
 - **Enums**: Strongly typed roles to prevent string-based logic errors.
 
 ### 4. BroChat.Infrastructure (The Implementation)
 - **MongoDbContext**: Implements the multi-tenant logic. It automatically creates indexes for emails, TTL (Time-To-Live) indexes for refresh tokens, and per-user databases.
 - **GeminiAiService**: A resilient HTTP client implementation that parses Server-Sent Events (SSE) from Google's Generative Language API.
 - **JwtTokenService**: Handles the generation and validation of HS256-signed JWTs.
+- **CloudinaryFileService**: A stream-based file provider that handles media uploads and cloud storage management.
 
 ---
 
@@ -59,6 +60,7 @@ The API is **CSRF-Proof** because:
 The `GeminiAiService` is optimized for speed and reliability:
 - **Model**: `gemini-3-flash-preview`
 - **SSE Parsing**: The service reads the stream line-by-line. It looks for `data: ` prefixes and parses the inner JSON to extract the text "delta."
+- **Multimodal Support**: The service is capable of iterating through message attachments and converting them into `InlineData` parts for the Gemini 1.5/2.0 vision models.
 - **Safety Filters**: If Gemini blocks a response due to safety filters, the service gracefully returns a predefined safety message instead of crashing.
 - **Cancellation**: If a user disconnects or clicks "Stop," the `CancellationToken` is triggered, immediately halting the HTTP request to Google to save resources.
 
@@ -72,6 +74,10 @@ For production, ensure these are set:
 - `MongoDb__ConnectionString`: Your MongoDB Atlas URI.
 - `Jwt__Secret`: A secure, random 32+ character string.
 - `Gemini__ApiKey`: Your Google AI Studio key.
+- `Cloudinary__CloudName`: Your Cloudinary Cloud Name.
+- `Cloudinary__ApiKey`: Your Cloudinary API Key.
+- `Cloudinary__ApiSecret`: Your Cloudinary API Secret.
+- `Cloudinary__UploadPreset`: Your Cloudinary Upload Preset.
 - `AllowedOrigins__0`: Your frontend URL (e.g., `https://brochat.vercel.app`).
 
 ### Docker Build
